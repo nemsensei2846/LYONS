@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L¥ØNS</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d;
+            color: #e0e0e0;
+        }
+        .text-lyons {
+            color: #FFD700; /* Dorado para el nombre */
+        }
+        .btn-gold {
+            background-color: #FFD700;
+            color: #1a1a1a;
+            font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            font-weight: 700;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: #FFD700;
+        }
+        .card-course {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+        }
+        .card-course:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: #FFD700;
+        }
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            background-color: #1a1a1a;
+        }
+        /* Estilos para el menú responsivo */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 9999px;
+        }
+        .nav-links a:hover {
+            color: #1a1a1a;
+            background-color: #FFD700;
+        }
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+        .menu-toggle .bar {
+            height: 3px;
+            width: 25px;
+            background-color: #FFD700;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 72px; /* Altura de la barra de navegación */
+                left: 0;
+                width: 100%;
+                background-color: rgba(26, 26, 26, 0.9);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                padding: 1rem 0;
+                z-index: 40;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                padding: 1rem 2rem;
+                text-align: center;
+                width: 100%;
+                border-radius: 0;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+        }
+        /* Animación para que las tarjetas de cursos aparezcan gradualmente */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card-course:nth-child(1) { animation-delay: 0.1s; }
+        .card-course:nth-child(2) { animation-delay: 0.2s; }
+        .card-course:nth-child(3) { animation-delay: 0.3s; }
+        .card-course:nth-child(4) { animation-delay: 0.4s; }
+        .card-course:nth-child(5) { animation-delay: 0.5s; }
+        .card-course:nth-child(6) { animation-delay: 0.6s; }
+        .card-course:nth-child(7) { animation-delay: 0.7s; }
+        .card-course:nth-child(8) { animation-delay: 0.8s; }
+
+        /* Estilos específicos para el formulario */
+        .form-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .form-input, .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
+        }
+        /* New styles for the logo */
+        .logo {
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+        }
+        
+        /* New animated background styles */
+        .animated-header {
+            position: relative;
+            background: linear-gradient(-45deg, #1f2937, #0f172a, #1a2a43, #081d30);
+            background-size: 400% 400%;
+            animation: animated-gradient 15s ease infinite;
+        }
+
+        .animated-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 13, 13, 0.6);
+            z-index: 10;
+        }
+
+        .animated-header .container {
+            position: relative;
+            z-index: 20;
+        }
+
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-[#0d0d0d] text-gray-200">
+
+    <!-- Navbar Responsivo -->
+    <nav class="sticky top-0 z-50 bg-[#1a1a1a] shadow-lg py-4 px-6 md:px-12 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+           <img src="L¥ØNS.png" alt="L¥ØNS Logo" class="h-16 w-16 logo">
+            <div class="text-3xl font-bold text-lyons">L¥ØNS</div>
+        </div>
+        <div class="menu-toggle" id="menu-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#cursos">Cursos</a></li>
+            <li><a href="#registro">Registro</a></li>
+             <li><a href="Planes.html">Planes</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header class="animated-header text-center py-20 md:py-32">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <p class="text-lg md:text-xl font-light mb-4">
+                #Mejorando vidas a través del aprendizaje
+            </p>
+            <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+                Aprende en Cualquier Momento, en Cualquier Lugar. Acelera tu Futuro.
+            </h1>
+            <p class="text-md md:text-lg font-light mb-8 max-w-3xl mx-auto">
+                Creemos que todos tienen la capacidad de ser creativos. L¥ØNS es un lugar donde las personas desarrollan su potencial.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#cursos" class="btn-gold py-3 px-8 rounded-full shadow-lg hover:bg-[#FFC600]">
+                    Explorar Cursos
+                </a>
+                <a href="#registro" class="btn-secondary py-3 px-8 rounded-full shadow-lg">
+                    Empezar Prueba
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-16">
+
+        <!-- About Section -->
+        <section id="nosotros" class="text-center mb-20">
+            <h2 class="text-4xl font-bold mb-6">¿Quiénes Somos?</h2>
+            <p class="max-w-3xl mx-auto text-lg leading-relaxed">
+                En L¥ØNS, estamos comprometidos con tu crecimiento profesional y académico. Ofrecemos una experiencia de aprendizaje de alta calidad, con instructores expertos y un enfoque práctico que te permitirá aplicar lo aprendido de inmediato.
+            </p>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="cursos" class="mb-20">
+            <h2 class="text-4xl font-bold text-center mb-10">Nuestros Cursos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Course Card - Excel -->
+                <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/34a853/ffffff?text=X" alt="Icono de Excel" class="h-16 w-16 mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Excel Profesional</h3>
+                    <p class="text-sm text-gray-400">Desde lo básico hasta lo avanzado.</p>
+                </div>
+
+                <!-- Course Card - Programación -->
+                <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/4285f4/ffffff?text=</>" alt="Icono de Programación" class="h-16 w-16 mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Programación</h3>
+                    <p class="text-sm text-gray-400">Aprende lógica y lenguajes clave.</p>
+                </div>
+
+                <!-- Course Card - Inglés -->
+                <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/db4437/ffffff?text=A" alt="Icono de Inglés" class="h-16 w-16 mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Inglés de Negocios</h3>
+                    <p class="text-sm text-gray-400">Comunícate con confianza.</p>
+                </div>
+
+                <!-- Course Card - Refuerzos -->
+                <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+                    <img src="https://placehold.co/100x100/fbbc05/ffffff?text=🎓" alt="Icono de Refuerzos" class="h-16 w-16 mb-4">
+                    <h3 class="text-2xl font-semibold mb-2">Refuerzos Académicos</h3>
+                    <p class="text-sm text-gray-400">Para escolares, jóvenes y universitarios.</p>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- Registration Form Section -->
+        <section id="registro" class="mb-20">
+            <h2 class="text-4xl font-bold text-center mb-10">Registro de Interés</h2>
+            <div class="form-card rounded-2xl p-8 max-w-2xl mx-auto">
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="full-name" class="block text-sm font-medium mb-2">Nombre y Apellido</label>
+                        <input type="text" id="full-name" name="fullName" required class="form-input w-full p-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label for="is-student" class="block text-sm font-medium mb-2">¿Eres estudiante?</label>
+                        <select id="is-student" name="isStudent" required class="form-select w-full p-3 rounded-xl">
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="course-interest" class="block text-sm font-medium mb-2">Curso de interés</label>
+                        <select id="course-interest" name="courseInterest" required class="form-select w-full p-3 rounded-xl">
+                            <option value="" disabled selected>Selecciona un curso</option>
+                            <option value="excel">Excel Profesional</option>
+                            <option value="programacion">Programación</option>
+                            <option value="ingles">Inglés de Negocios</option>
+                            <option value="refuerzos">Refuerzos Académicos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium mb-2">Correo electrónico</label>
+                        <input type="email" id="email" name="email" required class="form-input w-full p-3 rounded-xl">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium mb-2">Celular</label>
+                        <input type="tel" id="phone" name="phone" required class="form-input w-full p-3 rounded-xl">
+                    </div>
+                    <button type="submit" class="btn-gold py-3 px-8 rounded-full w-full shadow-lg">
+                        Enviar Formulario
+                    </button>
+                </form>
+            </div>
+            <p class="text-center text-sm text-gray-500 mt-4">
+                *Al hacer clic en "Enviar", se abrirá tu programa de correo para que envíes la información.
+            </p>
+        </section>
+        
+    </main>
+
+    <!-- JavaScript for calculation and modal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const contactForm = document.getElementById('contact-form');
+
+            // Toggle mobile menu
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Smooth scroll for nav links
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+
+            // Handle form submission for contact form
+            contactForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const fullName = document.getElementById('full-name').value;
+                const isStudent = document.getElementById('is-student').value === 'si' ? 'Sí' : 'No';
+                const courseInterest = document.getElementById('course-interest').options[document.getElementById('course-interest').selectedIndex].text;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                
+                // Construct the email body
+                const emailBody = `Hola,%0A%0AMe gustaría obtener más información sobre los cursos. Aquí están mis datos:%0A%0ANombre: ${fullName}%0AEstudiante: ${isStudent}%0ACurso de interés: ${courseInterest}%0ACorreo electrónico: ${email}%0ACelular: ${phone}%0A%0AGracias.`;
+
+                // The placeholder for your email address. You MUST replace this with your actual email.
+                const yourEmail = "your-email@gmail.com";
+                const mailtoLink = `mailto:${yourEmail}?subject=Formulario de Contacto L¥ØNS&body=${emailBody}`;
+                
+                window.location.href = mailtoLink;
+            });
+        });
+    </script>
+</body>
+</html>
