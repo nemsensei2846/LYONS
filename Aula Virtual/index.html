@@ -1,127 +1,208 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula Virtual - Inicio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aula Virtual - Inicio</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Hero con fondo */
+    .hero-section {
+      min-height: 90vh;
+      background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 50, 0.55);
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Animaciones */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeInUp 1s ease-in-out;
+    }
+    .animate-fade-delay {
+      animation: fadeInUp 1.4s ease-in-out;
+    }
+
+    /* Hover en cards */
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Footer links */
+    .footer-link {
+      color: #ccc;
+      text-decoration: none;
+    }
+    .footer-link:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    /* Navbar efecto scroll */
+    .navbar.scrolled {
+      background: #0d6efd !important;
+      transition: background 0.3s ease-in-out;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-graduation-cap me-2"></i>Aula Virtual
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cursos.html">Cursos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tutorias.html">Tutorías</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacto.html">Contacto</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <a href="login.html" class="btn btn-outline-light me-2">Iniciar Sesión</a>
-                    <a href="registro.html" class="btn btn-light">Registrarse</a>
-                </div>
-            </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <i class="fas fa-graduation-cap me-2"></i>Aula Virtual
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" 
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto text-center">
+          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Cursos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Tutorías</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+        </ul>
+        <div class="d-flex justify-content-center mt-2 mt-lg-0">
+          <a href="#" class="btn btn-outline-light me-2">Iniciar Sesión</a>
+          <a href="#" class="btn btn-light">Registrarse</a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section py-5 text-center text-white">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Bienvenido a tu Aula Virtual</h1>
-            <p class="lead mb-4">Plataforma educativa para aprendizaje en línea con acceso a cursos, tutorías y recursos educativos.</p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-                <a href="registro.html" class="btn btn-primary btn-lg px-4 gap-3">Comenzar Ahora</a>
-                <a href="cursos.html" class="btn btn-outline-light btn-lg px-4">Ver Cursos</a>
-            </div>
+  <!-- Hero -->
+  <section class="hero-section d-flex align-items-center text-center text-white">
+    <div class="container">
+      <h1 class="display-4 fw-bold animate-fade">Bienvenido a tu Aula Virtual</h1>
+      <p class="lead mb-4 animate-fade-delay">Aprende en línea con cursos, tutorías y recursos educativos.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="#" class="btn btn-primary btn-lg px-4">Comenzar Ahora</a>
+        <a href="#" class="btn btn-outline-light btn-lg px-4">Ver Cursos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Características Principales</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm text-center p-3 card-hover">
+            <i class="fas fa-chalkboard-teacher fa-3x text-primary mb-3"></i>
+            <h3 class="h5 fw-bold">Clases Virtuales</h3>
+            <p>Accede a salas virtuales para clases en vivo con profesores y compañeros.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5">Características Principales</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fas fa-chalkboard-teacher fa-3x text-primary mb-3"></i>
-                            <h3 class="card-title h5">Clases Virtuales</h3>
-                            <p class="card-text">Accede a salas virtuales para clases en vivo con profesores y compañeros.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
-                            <h3 class="card-title h5">Recursos Educativos</h3>
-                            <p class="card-text">Descarga y sube archivos, tareas y material de estudio en cualquier momento.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body text-center">
-                            <i class="fas fa-user-graduate fa-3x text-primary mb-3"></i>
-                            <h3 class="card-title h5">Tutorías Privadas</h3>
-                            <p class="card-text">Agenda sesiones personalizadas con tutores para resolver dudas específicas.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm text-center p-3 card-hover">
+            <i class="fas fa-file-alt fa-3x text-primary mb-3"></i>
+            <h3 class="h5 fw-bold">Recursos Educativos</h3>
+            <p>Descarga y sube archivos, tareas y material de estudio en cualquier momento.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h5>Aula Virtual</h5>
-                    <p class="text-muted">Plataforma educativa para aprendizaje en línea.</p>
-                </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <h5>Enlaces</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-decoration-none text-muted">Inicio</a></li>
-                        <li><a href="cursos.html" class="text-decoration-none text-muted">Cursos</a></li>
-                        <li><a href="tutorias.html" class="text-decoration-none text-muted">Tutorías</a></li>
-                        <li><a href="contacto.html" class="text-decoration-none text-muted">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contacto</h5>
-                    <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-envelope me-2"></i>info@aulavirtual.com</li>
-                        <li><i class="fas fa-phone me-2"></i>(123) 456-7890</li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p class="mb-0 text-muted">&copy; 2023 Aula Virtual. Todos los derechos reservados.</p>
-            </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm text-center p-3 card-hover">
+            <i class="fas fa-user-graduate fa-3x text-primary mb-3"></i>
+            <h3 class="h5 fw-bold">Tutorías Privadas</h3>
+            <p>Agenda sesiones personalizadas con tutores para resolver dudas específicas.</p>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/script.js"></script>
+  <!-- Footer -->
+  <footer class="bg-dark text-white pt-4">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-4">
+          <h5 class="fw-bold">Aula Virtual</h5>
+          <p class="text-muted">Plataforma educativa para aprendizaje en línea.</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="fw-bold">Enlaces</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="footer-link">Inicio</a></li>
+            <li><a href="#" class="footer-link">Cursos</a></li>
+            <li><a href="#" class="footer-link">Tutorías</a></li>
+            <li><a href="#" class="footer-link">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="fw-bold">Contacto</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-envelope me-2"></i>inversionjean26@gmail.com</li>
+            <li><i class="fas fa-phone me-2"></i>(+593) 999-456-415</li>
+          </ul>
+          <div class="mt-3">
+            <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+            <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+            <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary mt-4">
+      <p class="text-center text-muted">&copy; 2025 Aula Virtual. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script personalizado -->
+  <script>
+    // Navbar con efecto al hacer scroll
+    window.addEventListener("scroll", function() {
+      const navbar = document.querySelector(".navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+    // Animación de aparición al hacer scroll
+    const elements = document.querySelectorAll(".card-hover");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-fade");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
