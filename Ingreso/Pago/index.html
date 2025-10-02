@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L¥ØNS - Paquetes de Cursos</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#0d0d0d] text-gray-200">
+
+  <!-- Hero Section -->
+  <header class="header-bg text-center py-20 md:py-32">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 text-lyons leading-tight">L¥ØNS</h1>
+      <p class="text-xl sm:text-2xl font-light mb-8">
+        Domina las herramientas del éxito con nuestros cursos profesionales.
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-16">
+    <!-- Pricing Table Section -->
+    <section id="paquetes" class="mb-20">
+      <div class="text-center mb-10">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">PLAN DE PRECIOS</p>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-2">Precios simples, opciones flexibles y nada oculto</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+
+        <!-- Pricing Card - Excel -->
+        <div class="card-course rounded-3xl p-8 flex flex-col text-center">
+          <h3 class="text-3xl font-bold mb-2">Excel</h3>
+          <p class="text-5xl font-extrabold text-lyons">$10</p>
+          <p class="text-sm text-gray-400 mb-6">Curso completo</p>
+          <ul class="text-left mb-8 flex-grow space-y-2">
+            <li class="list-item-bullet">Dominio de fórmulas avanzadas</li>
+            <li class="list-item-bullet">Tablas dinámicas y macros</li>
+            <li class="list-item-bullet">Análisis de datos</li>
+            <li class="list-item-bullet">Automatización de tareas</li>
+          </ul>
+          <button class="select-btn btn-gold py-3 px-8 rounded-full shadow-lg w-full transition-colors duration-300" data-course="excel">
+            Seleccionar
+          </button>
+        </div>
+
+        <!-- Pricing Card - Programación -->
+        <div class="card-course rounded-3xl p-8 flex flex-col text-center">
+          <h3 class="text-3xl font-bold mb-2">Programación</h3>
+          <p class="text-5xl font-extrabold text-lyons">$10</p>
+          <p class="text-sm text-gray-400 mb-6">Curso completo</p>
+          <ul class="text-left mb-8 flex-grow space-y-2">
+            <li class="list-item-bullet">Lógica de programación</li>
+            <li class="list-item-bullet">Estructuras de datos</li>
+            <li class="list-item-bullet">Principios de algoritmos</li>
+            <li class="list-item-bullet">Proyectos prácticos</li>
+          </ul>
+          <button class="select-btn btn-gold py-3 px-8 rounded-full shadow-lg w-full transition-colors duration-300" data-course="programacion">
+            Seleccionar
+          </button>
+        </div>
+
+        <!-- Pricing Card - Inglés -->
+        <div class="card-course featured-card rounded-3xl p-8 flex flex-col text-center">
+          <h3 class="text-3xl font-bold mb-2">Inglés</h3>
+          <p class="text-5xl font-extrabold text-lyons">$10</p>
+          <p class="text-sm text-gray-400 mb-6">Curso completo</p>
+          <ul class="text-left mb-8 flex-grow space-y-2">
+            <li class="list-item-bullet">Vocabulario de negocios</li>
+            <li class="list-item-bullet">Comunicación fluida</li>
+            <li class="list-item-bullet">Preparación de entrevistas</li>
+            <li class="list-item-bullet">Presentaciones efectivas</li>
+          </ul>
+          <button class="select-btn btn-gold py-3 px-8 rounded-full shadow-lg w-full transition-colors duration-300" data-course="ingles">
+            Seleccionar
+          </button>
+        </div>
+
+        <!-- Pricing Card - Refuerzos -->
+        <div class="card-course rounded-3xl p-8 flex flex-col text-center">
+          <h3 class="text-3xl font-bold mb-2">Refuerzos Academicos.</h3>
+          <p class="text-5xl font-extrabold text-lyons">$5</p>
+          <p class="text-sm text-gray-400 mb-6">1 hora</p>
+          <ul class="text-left mb-8 flex-grow space-y-2">
+            <li class="list-item-bullet">Tutorías Quimica</li>
+            <li class="list-item-bullet">Tutoria de Fisica</li>
+            <li class="list-item-bullet">Tutoria de Quimica</li>
+            <li class="list-item-bullet">Tutoria, Leccion, Ejercicios Dinamicos y Practicos.</li>
+          </ul>
+          <button class="select-btn btn-gold py-3 px-8 rounded-full shadow-lg w-full transition-colors duration-300" data-course="refuerzos">
+            Seleccionar
+          </button>
+        </div>
+      </div>
+
+      <!-- Total and Buy Button -->
+      <div class="card-course max-w-2xl mx-auto p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between mt-8">
+        <span class="text-2xl font-bold">Total a pagar: <span id="total-price" class="text-lyons">$0.00</span></span>
+        <button id="buy-btn" class="btn-gold py-3 px-8 rounded-full shadow-lg w-full md:w-auto mt-4 md:mt-0 animate-pulse-glow">
+          Finalizar Compra
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Payment Modal -->
+  <div id="payment-modal" class="fixed inset-0 z-50 hidden items-center justify-center modal-overlay transition-opacity duration-300">
+    <div class="modal-content rounded-3xl shadow-2xl p-8 max-w-lg w-11/12 transform transition-all duration-300 scale-95 max-h-full overflow-y-auto">
+      <h3 class="text-3xl font-bold text-center mb-4 text-lyons">¡Felicidades!</h3>
+      <p class="text-center mb-6 text-sm sm:text-base">Tu pedido ha sido procesado. Sigue los pasos para completar la inscripción.</p>
+      
+      <div class="bg-gray-800 rounded-xl p-6 mb-4 text-center">
+        <p class="text-lg font-bold mb-2">Nombre del Propietario:</p>
+        <p class="text-xl sm:text-2xl font-mono text-white">Jean Nicolas Leon Chillogalli</p>
+      </div>
+      
+      <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
+        <p class="text-lg font-bold mb-2">Número de Cuenta:</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 mb-2">
+          <p id="account-pichincha" class="text-2xl font-mono text-white">2211171474</p>
+          <button id="copy-btn-pichincha" class="bg-gray-700 hover:bg-gray-600 text-sm text-white px-4 py-2 rounded-full transition">Copiar</button>
+        </div>
+        <p class="text-sm text-gray-400">Banco de Pichincha</p>
+      </div>
+
+      <div class="bg-gray-800 rounded-xl p-6 mb-6 text-center">
+        <p class="text-lg font-bold mb-2">Número de Cuenta:</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 mb-2">
+          <p id="account-pacifico" class="text-2xl font-mono text-white">1070824444</p>
+          <button id="copy-btn-pacifico" class="bg-gray-700 hover:bg-gray-600 text-sm text-white px-4 py-2 rounded-full transition">Copiar</button>
+        </div>
+        <p class="text-sm text-gray-400">Banco del Pacífico</p>
+      </div>
+
+      <p class="text-center mb-4 text-sm sm:text-base">Una vez realizado el pago, haz clic en el botón de abajo para enviar el comprobante por WhatsApp.</p>
+      <a id="whatsapp-link" href="#" target="_blank" class="block text-center btn-gold py-3 px-8 rounded-full w-full">
+        Enviar Comprobante por WhatsApp
+      </a>
+      <button id="close-modal-btn" class="w-full text-center mt-4 text-gray-400 hover:text-white transition">
+        Cerrar
+      </button>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
