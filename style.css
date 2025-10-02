@@ -1,0 +1,71 @@
+/* ===== Estilos Globales ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+html, body { height: 100%; overflow: hidden; background: #1a2a47; color: #fff; }
+
+/* ===== Contenedor central ===== */
+.contenedor-central {
+  position: relative;
+  z-index: 10;
+  background: rgba(0,0,0,0.6);
+  padding: 60px 50px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  text-align: center;
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+@keyframes fadeInUp {
+  0% { opacity:0; transform: translateY(60px);}
+  100% { opacity:1; transform: translateY(0);}
+}
+
+/* ===== Logo con efecto ===== */
+.logo-container { position: relative; display: inline-block; margin-bottom: 25px; }
+.logo { transition: transform 0.5s ease; z-index: 10; position: relative; }
+.logo:hover { transform: scale(1.3); }
+.logo-glow {
+  position: absolute;
+  top: 80%;
+  left: 60%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(0,198,255,0.4), transparent 70%);
+  transform: translate(-50%, -50%);
+  filter: blur(50px);
+  animation: glowPulse 2s infinite alternate;
+  z-index: 1;
+}
+@keyframes glowPulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity:0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity:1; }
+}
+
+/* ===== Textos ===== */
+h1 { font-size:3rem; font-weight:700; margin-bottom:15px; }
+p { font-size:1.2rem; margin-bottom:35px; color:#d1d1d1; }
+
+/* ===== Botón moderno ===== */
+.btn-info {
+  background: linear-gradient(90deg,#00c6ff,#0072ff);
+  border:none;
+  padding:14px 35px;
+  font-size:1.1rem;
+  border-radius:50px;
+  transition: all 0.3s ease;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
+.btn-info:hover {
+  transform: scale(1.08);
+  box-shadow:0 12px 25px rgba(0,0,0,0.5);
+}
+
+/* ===== Contenedor de botones ===== */
+.botones-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+
+/* ===== Iconos de redes sociales ===== */
+.social-icons { margin-top: 25px; display: flex; justify-content: center; gap: 20px; }
+.social-icons .social { color: #fff; font-size: 1.5rem; transition: transform 0.3s, color 0.3s; }
+.social-icons .social:hover { transform: scale(1.3); color: #00c6ff; }
+
+/* ===== Canvas de fondo ===== */
+canvas { position: fixed; top:0; left:0; z-index:1; }
