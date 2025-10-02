@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L¥ØNS</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#0d0d0d] text-gray-200">
+
+  <!-- Navbar Responsivo -->
+  <nav class="sticky top-0 z-50 bg-[#1a1a1a] shadow-lg py-4 px-6 md:px-12 flex items-center justify-between">
+    <div class="flex items-center space-x-2">
+      <img src="L¥ØNS.png" alt="L¥ØNS Logo" class="h-16 w-16 logo">
+      <div class="text-3xl font-bold text-lyons">L¥ØNS</div>
+    </div>
+    <div class="menu-toggle" id="menu-toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#cursos">Cursos</a></li>
+      <li><a href="#registro">Registro</a></li>
+      <li><a href="Planes.html">Planes</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="animated-header text-center py-20 md:py-32">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <p class="text-lg md:text-xl font-light mb-4">#Mejorando vidas a través del aprendizaje</p>
+      <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+        Aprende en Cualquier Momento, en Cualquier Lugar. Acelera tu Futuro.
+      </h1>
+      <p class="text-md md:text-lg font-light mb-8 max-w-3xl mx-auto">
+        Creemos que todos tienen la capacidad de ser creativos. L¥ØNS es un lugar donde las personas desarrollan su potencial.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="#cursos" class="btn-gold py-3 px-8 rounded-full shadow-lg hover:bg-[#FFC600]">Explorar Cursos</a>
+        <a href="#registro" class="btn-secondary py-3 px-8 rounded-full shadow-lg">Empezar Prueba</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container mx-auto px-6 py-16">
+
+    <!-- About -->
+    <section id="nosotros" class="text-center mb-20">
+      <h2 class="text-4xl font-bold mb-6">¿Quiénes Somos?</h2>
+      <p class="max-w-3xl mx-auto text-lg leading-relaxed">
+        En L¥ØNS, estamos comprometidos con tu crecimiento profesional y académico. Ofrecemos una experiencia de aprendizaje de alta calidad, con instructores expertos y un enfoque práctico que te permitirá aplicar lo aprendido de inmediato.
+      </p>
+    </section>
+
+    <!-- Courses -->
+    <section id="cursos" class="mb-20">
+      <h2 class="text-4xl font-bold text-center mb-10">Nuestros Cursos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+          <img src="https://placehold.co/100x100/34a853/ffffff?text=X" alt="Excel" class="h-16 w-16 mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Excel Profesional</h3>
+          <p class="text-sm text-gray-400">Desde lo básico hasta lo avanzado.</p>
+        </div>
+
+        <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+          <img src="https://placehold.co/100x100/4285f4/ffffff?text=</>" alt="Programación" class="h-16 w-16 mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Programación</h3>
+          <p class="text-sm text-gray-400">Aprende lógica y lenguajes clave.</p>
+        </div>
+
+        <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+          <img src="https://placehold.co/100x100/db4437/ffffff?text=A" alt="Inglés" class="h-16 w-16 mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Inglés de Negocios</h3>
+          <p class="text-sm text-gray-400">Comunícate con confianza.</p>
+        </div>
+
+        <div class="card-course rounded-3xl p-6 flex flex-col items-center text-center">
+          <img src="https://placehold.co/100x100/fbbc05/ffffff?text=🎓" alt="Refuerzos" class="h-16 w-16 mb-4">
+          <h3 class="text-2xl font-semibold mb-2">Refuerzos Académicos</h3>
+          <p class="text-sm text-gray-400">Para escolares, jóvenes y universitarios.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Registro -->
+    <section id="registro" class="mb-20">
+      <h2 class="text-4xl font-bold text-center mb-10">Registro de Interés</h2>
+      <div class="form-card rounded-2xl p-8 max-w-2xl mx-auto">
+        <form id="contact-form" class="space-y-6">
+          <div>
+            <label for="full-name" class="block text-sm font-medium mb-2">Nombre y Apellido</label>
+            <input type="text" id="full-name" name="fullName" required class="form-input w-full p-3 rounded-xl">
+          </div>
+          <div>
+            <label for="is-student" class="block text-sm font-medium mb-2">¿Eres estudiante?</label>
+            <select id="is-student" name="isStudent" required class="form-select w-full p-3 rounded-xl">
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div>
+            <label for="course-interest" class="block text-sm font-medium mb-2">Curso de interés</label>
+            <select id="course-interest" name="courseInterest" required class="form-select w-full p-3 rounded-xl">
+              <option value="" disabled selected>Selecciona un curso</option>
+              <option value="excel">Excel Profesional</option>
+              <option value="programacion">Programación</option>
+              <option value="ingles">Inglés de Negocios</option>
+              <option value="refuerzos">Refuerzos Académicos</option>
+            </select>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium mb-2">Correo electrónico</label>
+            <input type="email" id="email" name="email" required class="form-input w-full p-3 rounded-xl">
+          </div>
+          <div>
+            <label for="phone" class="block text-sm font-medium mb-2">Celular</label>
+            <input type="tel" id="phone" name="phone" required class="form-input w-full p-3 rounded-xl">
+          </div>
+          <button type="submit" class="btn-gold py-3 px-8 rounded-full w-full shadow-lg">Enviar Formulario</button>
+        </form>
+      </div>
+      <p class="text-center text-sm text-gray-500 mt-4">*Al hacer clic en "Enviar", se abrirá tu programa de correo para que envíes la información.</p>
+    </section>
+
+  </main>
+
+  <!-- JS externo -->
+  <script src="script.js"></script>
+</body>
+</html>
