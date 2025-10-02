@@ -1,0 +1,163 @@
+/* Estilos generales */
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #1cc88a;
+    --dark-color: #5a5c69;
+    --light-color: #f8f9fc;
+}
+
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(78, 115, 223, 0.9), rgba(78, 115, 223, 0.9)), url('../img/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0;
+}
+
+/* Cards */
+.card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Login & Register Forms */
+.auth-card {
+    max-width: 450px;
+    margin: 0 auto;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+.auth-card .card-header {
+    background-color: white;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+/* Dashboard */
+.sidebar {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    background-image: linear-gradient(180deg, var(--primary-color) 10%, #224abe 100%);
+}
+
+.sidebar-brand {
+    height: 4.375rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    letter-spacing: 0.05rem;
+}
+
+.sidebar-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0 1rem 1rem;
+}
+
+.sidebar .nav-item .nav-link {
+    padding: 0.75rem 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar .nav-item .nav-link:hover {
+    color: #fff;
+}
+
+.sidebar .nav-item .nav-link i {
+    margin-right: 0.25rem;
+}
+
+/* Cursos */
+.course-card {
+    overflow: hidden;
+}
+
+.course-card img {
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover img {
+    transform: scale(1.05);
+}
+
+.course-price {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* Tutorías */
+.tutor-card .tutor-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Asistencia */
+.attendance-table th, .attendance-table td {
+    vertical-align: middle;
+}
+
+/* Archivos */
+.file-item {
+    border-left: 4px solid var(--primary-color);
+    transition: background-color 0.2s ease;
+}
+
+.file-item:hover {
+    background-color: rgba(78, 115, 223, 0.05);
+}
+
+.file-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* Método de pago */
+.payment-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.payment-card:hover, .payment-card.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(78, 115, 223, 0.2);
+}
+
+.payment-card.selected {
+    background-color: rgba(78, 115, 223, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+    
+    .sidebar {
+        min-height: auto;
+    }
+}
