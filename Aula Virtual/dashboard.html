@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Aula Virtual</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --success: #4cc9f0;
+      --info: #4895ef;
+      --warning: #f72585;
+      --danger: #e63946;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fb;
+      overflow-x: hidden;
+    }
+    
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: all 0.3s;
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-header h3 {
+      margin: 0;
+      font-weight: 700;
+    }
+    
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+    
+    .sidebar-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .sidebar-menu li {
+      padding: 10px 20px;
+      transition: all 0.3s;
+    }
+    
+    .sidebar-menu li:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-menu a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    .sidebar-menu i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: all 0.3s;
+    }
+    
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+      border: none;
+      transition: transform 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .card-header {
+      border-radius: 10px 10px 0 0 !important;
+      border-bottom: none;
+      background-color: white;
+      padding: 15px 20px;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .stat-card {
+      border-left: 5px solid var(--primary);
+    }
+    
+    .stat-card.purple {
+      border-left-color: var(--secondary);
+    }
+    
+    .stat-card.blue {
+      border-left-color: var(--info);
+    }
+    
+    .stat-card.pink {
+      border-left-color: var(--warning);
+    }
+    
+    .stat-card.red {
+      border-left-color: var(--danger);
+    }
+    
+    .stat-card .stat-icon {
+      font-size: 2.5rem;
+      color: #e9ecef;
+    }
+    
+    .stat-card .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .stat-card .stat-text {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .quick-action {
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      color: white;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+    }
+    
+    .quick-action:hover {
+      transform: scale(1.05);
+    }
+    
+    .quick-action i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    
+    .quick-action.purple {
+      background: linear-gradient(135deg, #7209b7, #560bad);
+    }
+    
+    .quick-action.blue {
+      background: linear-gradient(135deg, #4cc9f0, #4895ef);
+    }
+    
+    .quick-action.pink {
+      background: linear-gradient(135deg, #f72585, #b5179e);
+    }
+    
+    .quick-action.green {
+      background: linear-gradient(135deg, #52b788, #40916c);
+    }
+    
+    .role-toggle {
+      margin-bottom: 20px;
+    }
+    
+    .role-toggle .btn {
+      border-radius: 20px;
+      padding: 8px 20px;
+      margin-right: 10px;
+    }
+    
+    .role-toggle .btn.active {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .upcoming-class {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #f8f9fa;
+      margin-bottom: 15px;
+      transition: all 0.3s;
+    }
+    
+    .upcoming-class:hover {
+      background-color: #e9ecef;
+    }
+    
+    .upcoming-class .class-time {
+      background-color: var(--primary);
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      margin-right: 15px;
+      text-align: center;
+      min-width: 80px;
+    }
+    
+    .upcoming-class .class-time .time {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    
+    .upcoming-class .class-time .date {
+      font-size: 0.8rem;
+    }
+    
+    .upcoming-class .class-info {
+      flex-grow: 1;
+    }
+    
+    .upcoming-class .class-info .class-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .upcoming-class .class-info .class-details {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .upcoming-class .class-actions {
+      margin-left: 15px;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .user-info .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-right: 15px;
+    }
+    
+    .user-info .user-details h5 {
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .user-info .user-details p {
+      margin: 0;
+      color: #6c757d;
+    }
+    
+    .progress {
+      height: 10px;
+      border-radius: 5px;
+    }
+    
+    .progress-bar {
+      background-color: var(--primary);
+    }
+    
+    .teacher-section, .student-section {
+      display: none;
+    }
+    
+    .active-section {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 0;
+        padding: 0;
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .sidebar.active {
+        width: 250px;
+      }
+      
+      .main-content.active {
+        margin-left: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>Aula Virtual</h3>
+    </div>
+    <div class="sidebar-menu">
+      <ul>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="crear-sala.html"><i class="fas fa-chalkboard"></i> Salas</a></li>
+        <li><a href="asistencia.html"><i class="fas fa-clipboard-check"></i> Asistencia</a></li>
+        <li><a href="archivos.html"><i class="fas fa-file-alt"></i> Archivos</a></li>
+        <li><a href="tutorias.html"><i class="fas fa-user-graduate"></i> Tutorías</a></li>
+        <li><a href="pago.html"><i class="fas fa-credit-card"></i> Pagos</a></li>
+        <li><a href="login.html"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container-fluid">
+      <!-- User Info -->
+      <div class="user-info">
+        <div class="user-avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-details">
+          <h5>Bienvenido, <span id="user-name">Usuario</span></h5>
+          <p id="user-role">Rol: Estudiante</p>
+        </div>
+      </div>
+
+      <!-- Role Toggle -->
+      <div class="role-toggle">
+        <button class="btn btn-outline-primary active" id="student-toggle">Vista Estudiante</button>
+        <button class="btn btn-outline-primary" id="teacher-toggle">Vista Maestro</button>
+      </div>
+
+      <!-- Student Section -->
+      <div class="student-section active-section">
+        <div class="row">
+          <!-- Stats -->
+          <div class="col-md-3">
+            <div class="card stat-card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">8</div>
+                    <div class="stat-text">Cursos Activos</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-book"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card purple">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">92%</div>
+                    <div class="stat-text">Asistencia</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card blue">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-text">Tareas Pendientes</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-tasks"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card pink">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-text">Tutorías Programadas</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Acciones Rápidas</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3">
+                    <a href="crear-sala.html" class="d-block text-decoration-none">
+                      <div class="quick-action purple">
+                        <i class="fas fa-chalkboard"></i>
+                        <div>Unirse a Sala</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="archivos.html" class="d-block text-decoration-none">
+                      <div class="quick-action blue">
+                        <i class="fas fa-file-upload"></i>
+                        <div>Subir Archivo</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="#" class="d-block text-decoration-none" data-bs-toggle="modal" data-bs-target="#tutoriaModal">
+                      <div class="quick-action pink">
+                        <i class="fas fa-user-graduate"></i>
+                        <div>Solicitar Tutoría</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="asistencia.html" class="d-block text-decoration-none">
+                      <div class="quick-action green">
+                        <i class="fas fa-clipboard-check"></i>
+                        <div>Ver Asistencia</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Próximas Clases</h5>
+              </div>
+              <div class="card-body">
+                <div class="upcoming-class">
+                  <div class="class-time">
+                    <div class="time">10:00</div>
+                    <div class="date">Hoy</div>
+                  </div>
+                  <div class="class-info">
+                    <div class="class-name">Matemáticas</div>
+                    <div class="class-details">Ing.Cvl. Luis Leon - Sala 101</div>
+                  </div>
+                  <div class="class-actions">
+                    <button class="btn btn-primary btn-sm">Unirse</button>
+                  </div>
+                </div>
+                <div class="upcoming-class">
+                  <div class="class-time">
+                    <div class="time">14:30</div>
+                    <div class="date">Hoy</div>
+                  </div>
+                  <div class="class-info">
+                    <div class="class-name">Física</div>
+                    <div class="class-details">Ing.Cvl. Luis Leon - Sala 205</div>
+                  </div>
+                  <div class="class-actions">
+                    <button class="btn btn-primary btn-sm">Unirse</button>
+                  </div>
+                </div>
+                <div class="upcoming-class">
+                  <div class="class-time">
+                    <div class="time">09:15</div>
+                    <div class="date">Mañana</div>
+                  </div>
+                  <div class="class-info">
+                    <div class="class-name">Programación</div>
+                    <div class="class-details">Prof. Jean Leon 302</div>
+                  </div>
+                  <div class="class-actions">
+                    <button class="btn btn-primary btn-sm">Unirse</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Progreso del Curso</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Matemáticas</span>
+                    <span>75%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Física</span>
+                    <span>60%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Programación</span>
+                    <span>90%</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher Section -->
+      <div class="teacher-section">
+        <div class="row">
+          <!-- Stats -->
+          <div class="col-md-3">
+            <div class="card stat-card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">5</div>
+                    <div class="stat-text">Cursos Activos</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-chalkboard"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card purple">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">128</div>
+                    <div class="stat-text">Estudiantes</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card blue">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">15</div>
+                    <div class="stat-text">Tareas por Calificar</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-tasks"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card stat-card pink">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="stat-number">8</div>
+                    <div class="stat-text">Tutorías Programadas</div>
+                  </div>
+                  <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Acciones Rápidas</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-3">
+                    <a href="crear-sala.html" class="d-block text-decoration-none">
+                      <div class="quick-action purple">
+                        <i class="fas fa-chalkboard"></i>
+                        <div>Crear Sala</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="asistencia.html" class="d-block text-decoration-none">
+                      <div class="quick-action blue">
+                        <i class="fas fa-clipboard-check"></i>
+                        <div>Tomar Asistencia</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="archivos.html" class="d-block text-decoration-none">
+                      <div class="quick-action pink">
+                        <i class="fas fa-file-upload"></i>
+                        <div>Subir Material</div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="tutorias.html" class="d-block text-decoration-none">
+                      <div class="quick-action green">
+                        <i class="fas fa-calendar-plus"></i>
+                        <div>Programar Tutoría</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Clases Programadas</h5>
+              </div>
+              <div class="card-body">
+                <div class="upcoming-class">
+                  <div class="class-time">
+                    <div class="time">10:00</div>
+                    <div class="date">Hoy</div>
+                  </div>
+                  <div class="class-info">
+                    <div class="class-name">Matemáticas</div>
+                    <div class="class-details">35 estudiantes - Sala 101</div>
+                  </div>
+                  <div class="class-actions">
+                    <button class="btn btn-primary btn-sm">Iniciar</button>
+                    <button class="btn btn-outline-secondary btn-sm ms-2">Editar</button>
+                  </div>
+                </div>
+                <div class="upcoming-class">
+                  <div class="class-time">
+                    <div class="time">14:30</div>
+                    <div class="date">Hoy</div>
+                  </div>
+                  <div class="class-info">
+                    <div class="class-name">Física</div>
+                    <div class="class-details">28 estudiantes - Sala 205</div>
+                  </div>
+                  <div class="class-actions">
+                    <button class="btn btn-primary btn-sm">Iniciar</button>
+                    <button class="btn btn-outline-secondary btn-sm ms-2">Editar</button>
+                  </div>
+                </div>
+                <div class="upcoming-class">
+                  <div class="class-time">
+                    <div class="time">09:15</div>
+                    <div class="date">Mañana</div>
+                  </div>
+                  <div class="class-info">
+                    <div class="class-name">Programación</div>
+                    <div class="class-details">42 estudiantes - Sala 302</div>
+                  </div>
+                  <div class="class-actions">
+                    <button class="btn btn-primary btn-sm">Iniciar</button>
+                    <button class="btn btn-outline-secondary btn-sm ms-2">Editar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Performance -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Rendimiento de Estudiantes</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Matemáticas</span>
+                    <span>85% promedio</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Física</span>
+                    <span>72% promedio</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span>Programación</span>
+                    <span>90% promedio</span>
+                  </div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Solicitud de Tutoría -->
+  <div class="modal fade" id="tutoriaModal" tabindex="-1" aria-labelledby="tutoriaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="tutoriaModalLabel">Solicitar Tutoría</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="tutoriaForm">
+            <div class="mb-3">
+              <label for="tutoriaMateria" class="form-label">Materia</label>
+              <select class="form-select" id="tutoriaMateria" required>
+                <option value="" selected disabled>Selecciona una materia</option>
+                <option value="matematicas">Matemáticas</option>
+                <option value="fisica">Física</option>
+                <option value="programacion">Programación</option>
+                <option value="quimica">Química</option>
+                <option value="biologia">Biología</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tutoriaTutor" class="form-label">Tutor</label>
+              <select class="form-select" id="tutoriaTutor" required>
+                <option value="" selected disabled>Selecciona un tutor</option>
+                <option value="1">Prof. Luis Leon (Matemáticas)</option>
+                <option value="2">Prof. Luis Leon (Física)</option>
+                <option value="3">Prof. Jean Leon (Programación)</option>
+                <option value="4">Prof. Jean Leon (Química)</option>
+                <option value="5">Prof. Dina Orellana (Preparacion Universitaria)</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tutoriaFecha" class="form-label">Fecha</label>
+              <input type="date" class="form-control" id="tutoriaFecha" required min="">
+            </div>
+            <div class="mb-3">
+              <label for="tutoriaHora" class="form-label">Hora</label>
+              <input type="time" class="form-control" id="tutoriaHora" required>
+            </div>
+            <div class="mb-3">
+              <label for="tutoriaDuracion" class="form-label">Duración</label>
+              <select class="form-select" id="tutoriaDuracion" required>
+                <option value="30">30 minutos</option>
+                <option value="60" selected>1 hora</option>
+                <option value="90">1 hora 30 minutos</option>
+                <option value="120">2 horas</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tutoriaDescripcion" class="form-label">Descripción del tema</label>
+              <textarea class="form-control" id="tutoriaDescripcion" rows="3" placeholder="Describe brevemente el tema que deseas tratar en la tutoría" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="tutoriaEmail" class="form-label">Correo electrónico para notificaciones</label>
+              <input type="email" class="form-control" id="tutoriaEmail" placeholder="inversionjean26@gmail.com" required>
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="tutoriaNotificacion" checked>
+              <label class="form-check-label" for="tutoriaNotificacion">
+                Recibir notificación por correo electrónico
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="enviarSolicitudTutoria">Enviar Solicitud</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificación -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="notificacionToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Solicitud Enviada</strong>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Tu solicitud de tutoría ha sido enviada correctamente. Se ha enviado una notificación a tu correo electrónico.
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Establecer la fecha mínima como hoy para el campo de fecha
+    document.addEventListener('DOMContentLoaded', function() {
+      // Configurar fecha mínima para el selector de fecha
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      document.getElementById('tutoriaFecha').min = formattedDate;
+      
+      // Manejar el envío del formulario de tutoría
+      document.getElementById('enviarSolicitudTutoria').addEventListener('click', function() {
+        const form = document.getElementById('tutoriaForm');
+        
+        // Verificar si el formulario es válido
+        if (!form.checkValidity()) {
+          // Mostrar validaciones del navegador
+          form.reportValidity();
+          return;
+        }
+        
+        // Recopilar datos del formulario
+        const materia = document.getElementById('tutoriaMateria').value;
+        const tutor = document.getElementById('tutoriaTutor').options[document.getElementById('tutoriaTutor').selectedIndex].text;
+        const fecha = document.getElementById('tutoriaFecha').value;
+        const hora = document.getElementById('tutoriaHora').value;
+        const duracion = document.getElementById('tutoriaDuracion').value;
+        const descripcion = document.getElementById('tutoriaDescripcion').value;
+        const email = document.getElementById('tutoriaEmail').value;
+        const notificacion = document.getElementById('tutoriaNotificacion').checked;
+        
+        // Simulación de envío de correo electrónico
+        if (notificacion) {
+          console.log('Enviando notificación por correo a:', email);
+          console.log('Detalles de la tutoría:', {
+            materia,
+            tutor,
+            fecha,
+            hora,
+            duracion,
+            descripcion
+          });
+          
+          // En un entorno real, aquí se haría una llamada a un servicio de backend
+          // para enviar el correo electrónico utilizando SMTP o un servicio como SendGrid, Mailgun, etc.
+          
+          // Simulación de respuesta exitosa
+          setTimeout(() => {
+            // Mostrar notificación de éxito
+            const toastEl = document.getElementById('notificacionToast');
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+            
+            // Cerrar el modal
+            const tutoriaModal = bootstrap.Modal.getInstance(document.getElementById('tutoriaModal'));
+            tutoriaModal.hide();
+            
+            // Limpiar el formulario
+            form.reset();
+          }, 1000);
+        }
+      });
+      
+      // Cambiar opciones de tutores según la materia seleccionada
+      document.getElementById('tutoriaMateria').addEventListener('change', function() {
+        const materia = this.value;
+        const tutorSelect = document.getElementById('tutoriaTutor');
+        
+        // Limpiar opciones actuales
+        tutorSelect.innerHTML = '<option value="" selected disabled>Selecciona un tutor</option>';
+        
+        // Añadir opciones según la materia
+        switch(materia) {
+          case 'matematicas':
+            tutorSelect.innerHTML += '<option value="1">Prof. Luis Leon (Matemáticas)</option>';
+            tutorSelect.innerHTML += '<option value="6">Prof. Jean Leon (Matemáticas)</option>';
+            break;
+          case 'fisica':
+            tutorSelect.innerHTML += '<option value="2">Prof. Martínez (Física)</option>';
+            break;
+          case 'programacion':
+            tutorSelect.innerHTML += '<option value="3">Prof. López (Programación)</option>';
+            tutorSelect.innerHTML += '<option value="7">Prof. Torres (Programación)</option>';
+            break;
+          case 'quimica':
+            tutorSelect.innerHTML += '<option value="4">Prof. Rodríguez (Química)</option>';
+            break;
+          case 'biologia':
+            tutorSelect.innerHTML += '<option value="5">Prof. Sánchez (Biología)</option>';
+            break;
+          default:
+            // Añadir todos los tutores si no hay materia específica
+            tutorSelect.innerHTML += '<option value="1">Prof. García (Matemáticas)</option>';
+            tutorSelect.innerHTML += '<option value="2">Prof. Martínez (Física)</option>';
+            tutorSelect.innerHTML += '<option value="3">Prof. López (Programación)</option>';
+            tutorSelect.innerHTML += '<option value="4">Prof. Rodríguez (Química)</option>';
+            tutorSelect.innerHTML += '<option value="5">Prof. Sánchez (Biología)</option>';
+        }
+      });
+    });
+    // Toggle between student and teacher views
+    document.getElementById('student-toggle').addEventListener('click', function() {
+      document.querySelector('.student-section').classList.add('active-section');
+      document.querySelector('.teacher-section').classList.remove('active-section');
+      document.getElementById('student-toggle').classList.add('active');
+      document.getElementById('teacher-toggle').classList.remove('active');
+      document.getElementById('user-role').textContent = 'Rol: Estudiante';
+    });
+    
+    document.getElementById('teacher-toggle').addEventListener('click', function() {
+      document.querySelector('.teacher-section').classList.add('active-section');
+      document.querySelector('.student-section').classList.remove('active-section');
+      document.getElementById('teacher-toggle').classList.add('active');
+      document.getElementById('student-toggle').classList.remove('active');
+      document.getElementById('user-role').textContent = 'Rol: Maestro';
+    });
+    
+    // Set user name from localStorage if available
+    window.addEventListener('DOMContentLoaded', function() {
+      const userName = localStorage.getItem('userName') || 'Usuario';
+      document.getElementById('user-name').textContent = userName;
+      
+      // Check if user role is stored in localStorage
+      const userRole = localStorage.getItem('userRole');
+      if (userRole === 'teacher') {
+        document.getElementById('teacher-toggle').click();
+      } else {
+        document.getElementById('student-toggle').click();
+      }
+    });
+  </script>
+</body>
+</html>

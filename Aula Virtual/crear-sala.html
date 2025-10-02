@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Sala - Aula Virtual</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap me-2"></i>Aula Virtual
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="crear-sala.html">Crear Sala</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="asistencia.html">Asistencia</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="perfil.html" class="btn btn-outline-light me-2">
+                        <i class="fas fa-user me-1"></i>Perfil
+                    </a>
+                    <a href="index.html" class="btn btn-light">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Crear Sala Content -->
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center font-weight-light my-2">Crear Nueva Sala Virtual</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="create-room-form" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="room-name" class="form-label">Nombre de la Sala</label>
+                                <input type="text" class="form-control" id="room-name" placeholder="Ej: Matemáticas Avanzadas - Grupo A" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese un nombre para la sala.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="room-description" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="room-description" rows="3" placeholder="Descripción breve de la sala y su propósito"></textarea>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="room-type" class="form-label">Tipo de Sala</label>
+                                    <select class="form-select" id="room-type" required>
+                                        <option value="" selected disabled>Seleccione un tipo</option>
+                                        <option value="class">Clase Regular</option>
+                                        <option value="tutoring">Tutoría</option>
+                                        <option value="workshop">Taller</option>
+                                        <option value="exam">Examen</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un tipo de sala.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="room-capacity" class="form-label">Capacidad Máxima</label>
+                                    <input type="number" class="form-control" id="room-capacity" min="1" max="100" value="30" required>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese una capacidad válida (1-100).
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3 mb-md-0">
+                                    <label for="room-date" class="form-label">Fecha</label>
+                                    <input type="date" class="form-control" id="room-date" required>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione una fecha.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="room-time" class="form-label">Hora</label>
+                                    <input type="time" class="form-control" id="room-time" required>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione una hora.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="room-duration" class="form-label">Duración (minutos)</label>
+                                <input type="number" class="form-control" id="room-duration" min="15" max="240" step="15" value="60" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese una duración válida (15-240 minutos).
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Opciones Adicionales</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="record-session">
+                                    <label class="form-check-label" for="record-session">
+                                        Grabar sesión
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="attendance-tracking" checked>
+                                    <label class="form-check-label" for="attendance-tracking">
+                                        Seguimiento de asistencia
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="file-sharing" checked>
+                                    <label class="form-check-label" for="file-sharing">
+                                        Compartir archivos
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="chat-enabled" checked>
+                                    <label class="form-check-label" for="chat-enabled">
+                                        Chat habilitado
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="room-participants" class="form-label">Participantes</label>
+                                <select class="form-select" id="room-participants" multiple>
+                                    <option value="all">Todos los estudiantes</option>
+                                    <option value="group-a">Grupo A</option>
+                                    <option value="group-b">Grupo B</option>
+                                    <option value="group-c">Grupo C</option>
+                                </select>
+                                <div class="form-text">
+                                    Mantenga presionado Ctrl (o Cmd en Mac) para seleccionar múltiples grupos.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="room-files" class="form-label">Archivos para la Sala (opcional)</label>
+                                <input type="file" class="form-control" id="room-files" multiple>
+                                <div class="form-text">
+                                    Puede seleccionar múltiples archivos para compartir en la sala.
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">Crear Sala</button>
+                                <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Aula Virtual</h5>
+                    <p class="text-muted">Plataforma educativa para aprendizaje en línea.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5>Enlaces</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-decoration-none text-muted">Inicio</a></li>
+                        <li><a href="dashboard.html" class="text-decoration-none text-muted">Dashboard</a></li>
+                        <li><a href="crear-sala.html" class="text-decoration-none text-muted">Crear Sala</a></li>
+                        <li><a href="contacto.html" class="text-decoration-none text-muted">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li><i class="fas fa-envelope me-2"></i>info@aulavirtual.com</li>
+                        <li><i class="fas fa-phone me-2"></i>(123) 456-7890</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0 text-muted">&copy; 2023 Aula Virtual. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Inicializar fecha actual
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('room-date').value = formattedDate;
+            
+            // Validación del formulario
+            const form = document.getElementById('create-room-form');
+            
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault();
+                    // Simulación de creación de sala
+                    showCreatingRoom();
+                    
+                    // Simulación de procesamiento
+                    setTimeout(() => {
+                        window.location.href = 'sala.html';
+                    }, 2000);
+                }
+                
+                form.classList.add('was-validated');
+            });
+        });
+        
+        function showCreatingRoom() {
+            // Crear un elemento para mostrar el estado
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'alert alert-info mt-3';
+            statusDiv.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                    <div>Creando sala virtual... Por favor espere.</div>
+                </div>
+            `;
+            
+            // Agregar al formulario
+            document.getElementById('create-room-form').appendChild(statusDiv);
+        }
+    </script>
+</body>
+</html>

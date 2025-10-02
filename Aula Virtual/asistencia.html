@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Asistencia - Aula Virtual</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3a0ca3;
+            --secondary-color: #4361ee;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .attendance-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .attendance-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .attendance-body {
+            padding: 20px;
+        }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        
+        .attendance-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .attendance-table th {
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .attendance-table th, 
+        .attendance-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .attendance-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        /* Estilo tipo Excel para la columna de asistencia */
+        .excel-column {
+            width: 60px;
+            background-color: #f8f9fa;
+            border-left: 2px solid #ddd;
+        }
+        
+        .excel-cell {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border-radius: 4px;
+            background-color: #ffffff;
+            transition: all 0.2s;
+        }
+        
+        .excel-cell:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .excel-cell.marked {
+            background-color: var(--success-color);
+        }
+        
+        .excel-cell i {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .filters {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-card {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-card.total {
+            background: linear-gradient(135deg, #4b6cb7, #182848);
+        }
+        
+        .summary-card.present {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+        }
+        
+        .summary-card.absent {
+            background: linear-gradient(135deg, #eb3349, #f45c43);
+        }
+        
+        .summary-card h3 {
+            font-size: 2rem;
+            margin: 0;
+        }
+        
+        .summary-card p {
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        .save-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.html">
+                <img src="L¥ØNS.png" alt="Logo" height="30" class="d-inline-block align-text-top me-2">
+                Aula Virtual
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> Ayuda</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container attendance-container">
+        <div class="attendance-header">
+            <h2><i class="fas fa-clipboard-check me-2"></i>Control de Asistencia</h2>
+            <p class="mb-0">Registro y seguimiento de asistencia de estudiantes</p>
+        </div>
+        
+        <div class="attendance-body">
+            <!-- Resumen de asistencia -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="summary-card total">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p>Total Estudiantes</p>
+                                <h3 id="totalStudents">0</h3>
+                            </div>
+                            <i class="fas fa-users fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="summary-card present">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p>Presentes</p>
+                                <h3 id="presentCount">0</h3>
+                            </div>
+                            <i class="fas fa-check-circle fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="summary-card absent">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p>Ausentes</p>
+                                <h3 id="absentCount">0</h3>
+                            </div>
+                            <i class="fas fa-times-circle fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Filtros -->
+            <div class="filters">
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="courseFilter" class="form-label">Curso:</label>
+                        <select class="form-select" id="courseFilter">
+                            <option value="all">Todos los cursos</option>
+                            <option value="programacion">Programación Avanzada</option>
+                            <option value="matematicas">Matemáticas Discretas</option>
+                            <option value="basedatos">Bases de Datos</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="dateFilter" class="form-label">Fecha:</label>
+                        <input type="date" class="form-control" id="dateFilter">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="statusFilter" class="form-label">Estado:</label>
+                        <select class="form-select" id="statusFilter">
+                            <option value="all">Todos</option>
+                            <option value="present">Presentes</option>
+                            <option value="absent">Ausentes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabla de asistencia con columna tipo Excel -->
+            <div class="table-responsive">
+                <table class="attendance-table" id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Estudiante</th>
+                            <th>ID</th>
+                            <th>Curso</th>
+                            <th>Email</th>
+                            <th class="excel-column">Asistencia</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attendanceTableBody">
+                        <!-- Los datos de los estudiantes se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Botón para guardar cambios -->
+            <button class="btn btn-primary btn-lg rounded-circle save-btn" id="saveBtn" title="Guardar Cambios">
+                <i class="fas fa-save"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Toast para notificaciones -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="saveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-success text-white">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong class="me-auto">Éxito</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Los cambios han sido guardados correctamente.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Datos de ejemplo de estudiantes
+        const students = [
+            { id: 1, name: "Ana María Rodríguez", studentId: "EST-001", course: "programacion", email: "ana.rodriguez@ejemplo.com" },
+            { id: 2, name: "Carlos Mendoza", studentId: "EST-002", course: "programacion", email: "carlos.mendoza@ejemplo.com" },
+            { id: 3, name: "Sofía Pérez", studentId: "EST-003", course: "matematicas", email: "sofia.perez@ejemplo.com" },
+            { id: 4, name: "Juan Diego Morales", studentId: "EST-004", course: "matematicas", email: "juan.morales@ejemplo.com" },
+            { id: 5, name: "Valentina Torres", studentId: "EST-005", course: "basedatos", email: "valentina.torres@ejemplo.com" },
+            { id: 6, name: "Sebastián Gutiérrez", studentId: "EST-006", course: "basedatos", email: "sebastian.gutierrez@ejemplo.com" },
+            { id: 7, name: "Camila Vargas", studentId: "EST-007", course: "programacion", email: "camila.vargas@ejemplo.com" },
+            { id: 8, name: "Mateo Sánchez", studentId: "EST-008", course: "matematicas", email: "mateo.sanchez@ejemplo.com" },
+            { id: 9, name: "Isabella Ramírez", studentId: "EST-009", course: "basedatos", email: "isabella.ramirez@ejemplo.com" },
+            { id: 10, name: "Daniel Herrera", studentId: "EST-010", course: "programacion", email: "daniel.herrera@ejemplo.com" }
+        ];
+        
+        // Función para renderizar la tabla de asistencia
+        function renderAttendanceTable(filteredStudents = students) {
+            const tableBody = document.getElementById('attendanceTableBody');
+            tableBody.innerHTML = '';
+            
+            filteredStudents.forEach(student => {
+                const row = document.createElement('tr');
+                
+                // Columnas básicas
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.name}</td>
+                    <td>${student.studentId}</td>
+                    <td>${getCourseDisplayName(student.course)}</td>
+                    <td>${student.email}</td>
+                    <td class="excel-column">
+                        <div class="excel-cell" onclick="toggleAttendance(this, ${student.id})">
+                            <i class="fas fa-check" style="display: none;"></i>
+                        </div>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            updateCounters();
+        }
+        
+        // Función para obtener el nombre del curso para mostrar
+        function getCourseDisplayName(courseCode) {
+            const courses = {
+                'programacion': 'Programación Avanzada',
+                'matematicas': 'Matemáticas Discretas',
+                'basedatos': 'Bases de Datos'
+            };
+            
+            return courses[courseCode] || courseCode;
+        }
+        
+        // Función para alternar la asistencia en la celda tipo Excel
+        function toggleAttendance(cell, studentId) {
+            cell.classList.toggle('marked');
+            const checkIcon = cell.querySelector('i');
+            
+            if (cell.classList.contains('marked')) {
+                checkIcon.style.display = 'inline';
+            } else {
+                checkIcon.style.display = 'none';
+            }
+            
+            updateCounters();
+        }
+        
+        // Función para actualizar los contadores
+        function updateCounters() {
+            const totalStudents = document.getElementById('totalStudents');
+            const presentCount = document.getElementById('presentCount');
+            const absentCount = document.getElementById('absentCount');
+            
+            const markedCells = document.querySelectorAll('.excel-cell.marked');
+            const visibleRows = document.querySelectorAll('#attendanceTableBody tr');
+            
+            totalStudents.textContent = visibleRows.length;
+            presentCount.textContent = markedCells.length;
+            absentCount.textContent = visibleRows.length - markedCells.length;
+        }
+        
+        // Función para filtrar estudiantes
+        function filterStudents() {
+            const courseFilter = document.getElementById('courseFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            let filteredStudents = students;
+            
+            // Filtrar por curso
+            if (courseFilter !== 'all') {
+                filteredStudents = filteredStudents.filter(student => student.course === courseFilter);
+            }
+            
+            // Renderizar tabla con estudiantes filtrados
+            renderAttendanceTable(filteredStudents);
+            
+            // Si se filtra por estado (presente/ausente), aplicar filtro después de renderizar
+            if (statusFilter !== 'all') {
+                const rows = document.querySelectorAll('#attendanceTableBody tr');
+                
+                rows.forEach(row => {
+                    const attendanceCell = row.querySelector('.excel-cell');
+                    const isPresent = attendanceCell.classList.contains('marked');
+                    
+                    if ((statusFilter === 'present' && !isPresent) || 
+                        (statusFilter === 'absent' && isPresent)) {
+                        row.style.display = 'none';
+                    } else {
+                        row.style.display = '';
+                    }
+                });
+                
+                updateCounters();
+            }
+        }
+        
+        // Función para guardar cambios
+        function saveChanges() {
+            // Aquí se implementaría la lógica para guardar en una base de datos
+            // Por ahora, solo mostraremos un toast de confirmación
+            const toast = new bootstrap.Toast(document.getElementById('saveToast'));
+            toast.show();
+        }
+        
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Renderizar tabla inicial
+            renderAttendanceTable();
+            
+            // Configurar eventos de filtros
+            document.getElementById('courseFilter').addEventListener('change', filterStudents);
+            document.getElementById('statusFilter').addEventListener('change', filterStudents);
+            document.getElementById('dateFilter').valueAsDate = new Date();
+            
+            // Configurar evento de guardar
+            document.getElementById('saveBtn').addEventListener('click', saveChanges);
+        });
+    </script>
+</body>
+</html>

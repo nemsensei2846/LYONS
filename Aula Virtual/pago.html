@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métodos de Pago - Aula Virtual</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3a0ca3;
+            --secondary-color: #4361ee;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .payment-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .payment-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .payment-body {
+            padding: 30px;
+        }
+        
+        .payment-method {
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .payment-method.active {
+            border-color: var(--primary-color);
+        }
+        
+        .method-header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+        
+        .method-title {
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .method-content {
+            padding-top: 20px;
+            display: none;
+        }
+        
+        .method-content.show {
+            display: block;
+        }
+        
+        .bank-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .bank-info h5 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .upload-area i {
+            font-size: 40px;
+            color: #adb5bd;
+            margin-bottom: 10px;
+        }
+        
+        .paypal-button {
+            background-color: #0070ba;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .paypal-button:hover {
+            background-color: #003087;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #3a0ca3, #4361ee);">
+        <div class="container">
+            <a class="navbar-brand" href="dashboard.html">
+                <img src="L¥ØNS.png" alt="Logo" height="30" class="d-inline-block align-text-top me-2">
+                Aula Virtual
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-question-circle"></i> Ayuda</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container payment-container">
+        <div class="payment-header">
+            <h2><i class="fas fa-credit-card me-2"></i>Métodos de Pago</h2>
+            <p class="mb-0">Seleccione su método de pago preferido para completar la transacción</p>
+        </div>
+        
+        <div class="payment-body">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <h4>Detalles del Curso</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" id="courseName">Curso de Preparacion Universitaria</h5>
+                            <p class="card-text" id="courseDescription">Asegura tu ingreso a la universidad, con profesores expertos, Material actualizado y simulacros, Modalidad presencial.</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Duración: <span id="courseDuration">6 meses</span></span>
+                                <span class="fw-bold">Precio: $<span id="coursePrice">275.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h4>Resumen</h4>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal:</span>
+                                <span>$<span id="subtotal">275.00</span></span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>IVA (15%):</span>
+                                <span>$<span id="tax">41.25</span></span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Total:</span>
+                                <span>$<span id="total">316.25</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="mb-3">Seleccione un método de pago</h4>
+            
+            <!-- Transferencia Bancaria -->
+            <div class="payment-method active" id="bankTransfer">
+                <div class="method-header" onclick="toggleMethod('bankTransfer')">
+                    <div class="method-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h5 class="method-title">Transferencia Bancaria</h5>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="method-content show">
+                    <div class="bank-info">
+                        <h5><i class="fas fa-landmark me-2"></i>Banco de Pichincha</h5>
+                        <p><strong>Nombre:</strong> Jean Nicolas Leon Chillogalli</p>
+                        <p><strong>Número de cuenta:</strong> 2211171474</p>
+                        <p><strong>C.I.:</strong> 0706856366</p>
+                        <p><strong>Tipo de cuenta:</strong> Ahorros</p>
+                    </div>
+                    
+                    <div class="bank-info">
+                        <h5><i class="fas fa-landmark me-2"></i>Banco del Pacífico</h5>
+                        <p><strong>Nombre:</strong> Jean Nicolas Leon Chillogalli</p>
+                        <p><strong>Número de cuenta:</strong> 1070824444</p>
+                        <p><strong>C.I.:</strong> 0706856366</p>
+                        <p><strong>Tipo de cuenta:</strong> Ahorros</p>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <p class="text-muted">Una vez realizada la transferencia, por favor suba el comprobante:</p>
+                        
+                        <div class="upload-area" onclick="document.getElementById('receiptUpload').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Haga clic aquí para subir el comprobante de pago</p>
+                            <p class="text-muted small">Formatos aceptados: JPG, PNG, PDF (Máx. 5MB)</p>
+                            <input type="file" id="receiptUpload" class="d-none" accept=".jpg,.jpeg,.png,.pdf" onchange="handleFileUpload(this)">
+                        </div>
+                        <div id="fileInfo"></div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button class="btn btn-primary" onclick="submitBankTransfer()">
+                            <i class="fas fa-check-circle me-2"></i>Confirmar Pago
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tarjeta de Crédito -->
+            <div class="payment-method" id="creditCard">
+                <div class="method-header" onclick="toggleMethod('creditCard')">
+                    <div class="method-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h5 class="method-title">Tarjeta de Crédito/Débito</h5>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="method-content">
+                    <div class="d-flex gap-2 mb-3">
+                        <div class="p-2 border rounded"><i class="fab fa-cc-visa fa-2x"></i></div>
+                        <div class="p-2 border rounded"><i class="fab fa-cc-mastercard fa-2x"></i></div>
+                        <div class="p-2 border rounded"><i class="fab fa-cc-amex fa-2x"></i></div>
+                    </div>
+                    
+                    <form class="credit-card-form">
+                        <div class="mb-3">
+                            <label for="cardName" class="form-label">Nombre en la tarjeta</label>
+                            <input type="text" class="form-control" id="cardName" placeholder="Como aparece en la tarjeta">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Número de tarjeta</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX">
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="expiryDate" class="form-label">Fecha de expiración</label>
+                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/AA">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="cvv" placeholder="XXX">
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary" onclick="processCardPayment()">
+                            <i class="fas fa-lock me-2"></i>Pagar Ahora
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- PayPal -->
+            <div class="payment-method" id="paypal">
+                <div class="method-header" onclick="toggleMethod('paypal')">
+                    <div class="method-icon">
+                        <i class="fab fa-paypal"></i>
+                    </div>
+                    <h5 class="method-title">PayPal</h5>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="method-content">
+                    <p>Será redirigido a PayPal para completar su pago de forma segura.</p>
+                    <div class="text-center mt-3">
+                        <button class="paypal-button" onclick="redirectToPaypal()">
+                            <i class="fab fa-paypal"></i>
+                            Pagar con PayPal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="p-3 bg-light text-center border-top">
+            <p class="mb-2">Pago seguro garantizado</p>
+            <div>
+                <i class="fab fa-cc-visa fa-2x mx-1"></i>
+                <i class="fab fa-cc-mastercard fa-2x mx-1"></i>
+                <i class="fab fa-cc-amex fa-2x mx-1"></i>
+                <i class="fab fa-paypal fa-2x mx-1"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Función para alternar entre métodos de pago
+        function toggleMethod(methodId) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.method-content').forEach(content => {
+                content.classList.remove('show');
+            });
+            
+            // Quitar clase activa de todos los métodos
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('active');
+            });
+            
+            // Mostrar el contenido seleccionado
+            const selectedMethod = document.getElementById(methodId);
+            selectedMethod.classList.add('active');
+            selectedMethod.querySelector('.method-content').classList.add('show');
+        }
+        
+        // Función para manejar la subida de archivos
+        function handleFileUpload(input) {
+            const fileInfo = document.getElementById('fileInfo');
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const fileSize = (file.size / 1024 / 1024).toFixed(2); // en MB
+                
+                if (fileSize > 5) {
+                    fileInfo.innerHTML = `<div class="alert alert-danger mt-2">El archivo excede el tamaño máximo de 5MB</div>`;
+                    input.value = '';
+                } else {
+                    fileInfo.innerHTML = `<div class="alert alert-success mt-2">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Archivo seleccionado: ${file.name} (${fileSize} MB)
+                    </div>`;
+                }
+            }
+        }
+        
+        // Función para procesar pago por transferencia bancaria
+        function submitBankTransfer() {
+            const fileInput = document.getElementById('receiptUpload');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Por favor, suba el comprobante de pago antes de continuar.');
+                return;
+            }
+            
+            // Simulación de envío
+            showProcessingMessage();
+            
+            // Simulación de procesamiento
+            setTimeout(() => {
+                window.location.href = 'confirmacion-pago.html?method=bank&status=success';
+            }, 2000);
+        }
+        
+        // Función para procesar pago con tarjeta
+        function processCardPayment() {
+            const cardName = document.getElementById('cardName').value;
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            
+            // Validación básica
+            if (!cardName || !cardNumber || !expiryDate || !cvv) {
+                alert('Por favor, complete todos los campos de la tarjeta.');
+                return;
+            }
+            
+            // Simulación de envío
+            showProcessingMessage();
+            
+            // Simulación de procesamiento
+            setTimeout(() => {
+                window.location.href = 'confirmacion-pago.html?method=card&status=success';
+            }, 2000);
+        }
+        
+        // Función para redireccionar a PayPal
+        function redirectToPaypal() {
+            showProcessingMessage();
+            
+            // Simulación de redirección a PayPal
+            setTimeout(() => {
+                window.location.href = 'confirmacion-pago.html?method=paypal&status=success';
+            }, 2000);
+        }
+        
+        // Función para mostrar mensaje de procesamiento
+        function showProcessingMessage() {
+            const paymentBody = document.querySelector('.payment-body');
+            const originalContent = paymentBody.innerHTML;
+            
+            paymentBody.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary mb-3" role="status">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <h4>Procesando su pago</h4>
+                    <p>Por favor, espere un momento...</p>
+                </div>
+            `;
+            
+            // Guardar el contenido original para restaurarlo si es necesario
+            paymentBody.dataset.originalContent = originalContent;
+        }
+        
+        // Cargar datos del curso desde localStorage (simulado)
+        document.addEventListener('DOMContentLoaded', function() {
+            // En un caso real, estos datos vendrían de una base de datos o localStorage
+            const courseData = {
+                name: "Curso de Programación Avanzada",
+                description: "Aprenda técnicas avanzadas de programación con nuestros expertos.",
+                duration: "3 meses",
+                price: 150.00
+            };
+            
+            // Actualizar la información del curso
+            document.getElementById('courseName').textContent = courseData.name;
+            document.getElementById('courseDescription').textContent = courseData.description;
+            document.getElementById('courseDuration').textContent = courseData.duration;
+            document.getElementById('coursePrice').textContent = courseData.price.toFixed(2);
+            
+            // Calcular totales
+            const subtotal = courseData.price;
+            const tax = subtotal * 0.12;
+            const total = subtotal + tax;
+            
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('tax').textContent = tax.toFixed(2);
+            document.getElementById('total').textContent = total.toFixed(2);
+        });
+    </script>
+</body>
+</html>
