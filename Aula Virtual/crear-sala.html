@@ -156,6 +156,303 @@
             opacity: 0.5;
             pointer-events: none;
         }
+        
+        /* ===== ESTILOS RESPONSIVOS MEJORADOS ===== */
+        
+        /* Estilos para dispositivos móviles pequeños (hasta 576px) */
+        @media (max-width: 575.98px) {
+            .main-container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header-section {
+                padding: 20px 15px;
+            }
+            
+            .header-section h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .header-section p {
+                font-size: 0.9rem;
+            }
+            
+            .access-section {
+                padding: 20px 15px;
+            }
+            
+            .access-section h4 {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
+            }
+            
+            .access-code-input {
+                padding: 12px;
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            
+            .btn-access {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .rooms-section {
+                padding: 20px 15px;
+            }
+            
+            .rooms-section h3 {
+                font-size: 1.3rem;
+                margin-bottom: 30px;
+            }
+            
+            .room-card {
+                margin-bottom: 15px;
+            }
+            
+            .room-icon {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .card-text {
+                font-size: 0.85rem;
+            }
+            
+            .participants-count {
+                font-size: 0.8rem;
+            }
+            
+            .navbar-brand img {
+                height: 25px;
+            }
+            
+            .navbar-nav .nav-link {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .btn-outline-light, .btn-light {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Estilos para tablets (576px - 768px) */
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .main-container {
+                margin: 20px;
+            }
+            
+            .header-section {
+                padding: 30px 20px;
+            }
+            
+            .access-section {
+                padding: 25px 20px;
+            }
+            
+            .rooms-section {
+                padding: 30px 20px;
+            }
+            
+            .room-icon {
+                font-size: 2.8rem;
+            }
+            
+            .access-code-input {
+                font-size: 1.05rem;
+            }
+            
+            .btn-access {
+                padding: 13px 25px;
+            }
+        }
+        
+        /* Estilos para tablets grandes (768px - 992px) */
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .main-container {
+                margin: 25px;
+            }
+            
+            .header-section {
+                padding: 35px 25px;
+            }
+            
+            .access-section {
+                padding: 28px 25px;
+            }
+            
+            .rooms-section {
+                padding: 35px 25px;
+            }
+            
+            .room-card {
+                min-height: 280px;
+            }
+        }
+        
+        /* Estilos para pantallas grandes (992px - 1200px) */
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .main-container {
+                max-width: 95%;
+            }
+            
+            .room-card {
+                min-height: 300px;
+            }
+            
+            .room-icon {
+                font-size: 3.2rem;
+            }
+        }
+        
+        /* Estilos para pantallas extra grandes (1200px+) */
+        @media (min-width: 1200px) {
+            .main-container {
+                max-width: 1140px;
+            }
+            
+            .room-card {
+                min-height: 320px;
+            }
+            
+            .room-icon {
+                font-size: 3.5rem;
+            }
+            
+            .header-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header-section p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Mejoras de accesibilidad y usabilidad */
+        @media (hover: hover) {
+            .room-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            }
+            
+            .btn-access:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+        }
+        
+        /* Para dispositivos táctiles */
+        @media (hover: none) {
+            .room-card:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+            
+            .btn-access:active {
+                transform: scale(0.98);
+            }
+        }
+        
+        /* Orientación landscape en móviles */
+        @media (max-width: 767.98px) and (orientation: landscape) {
+            .header-section {
+                padding: 15px;
+            }
+            
+            .header-section h1 {
+                font-size: 1.3rem;
+            }
+            
+            .access-section {
+                padding: 15px;
+            }
+            
+            .rooms-section {
+                padding: 20px 15px;
+            }
+            
+            .room-icon {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+            
+            .card-body {
+                padding: 15px;
+            }
+        }
+        
+        /* Mejoras para la navegación móvil */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: rgba(58, 12, 163, 0.95);
+                border-radius: 10px;
+                margin-top: 10px;
+                padding: 15px;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .navbar-nav .nav-item {
+                margin: 5px 0;
+            }
+            
+            .d-flex {
+                justify-content: center;
+                margin-top: 15px;
+                gap: 10px;
+            }
+            
+            .d-flex .btn {
+                flex: 1;
+                max-width: 120px;
+            }
+        }
+        
+        /* Optimización para pantallas de alta densidad */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .room-card {
+                box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            }
+            
+            .main-container {
+                box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+            }
+        }
+        
+        /* Estilos para modo oscuro del sistema */
+        @media (prefers-color-scheme: dark) {
+            .access-denied {
+                background: #2c1810;
+                color: #f8d7da;
+                border: 1px solid #721c24;
+            }
+        }
+        
+        /* Reducir animaciones para usuarios que prefieren menos movimiento */
+        @media (prefers-reduced-motion: reduce) {
+            .room-card,
+            .btn-access,
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
     </style>
 </head>
 <body>
