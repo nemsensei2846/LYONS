@@ -738,9 +738,21 @@
                 'razonamiento-verbal': 'Razonamiento Verbal'
             };
             
-            const roomName = roomNames[roomType];
+            // Mapeo de tipos de sala a archivos HTML
+            const roomFiles = {
+                'matematica': 'Matematicas.html',
+                'lenguaje': 'Lenguaje.html', 
+                'fisica': 'Fisica.html',
+                'quimica': 'Quimica.html',
+                'razonamiento-numerico': 'Preparacion Universitaria/Razonamiento Numerico.html',
+                'razonamiento-abstracto': 'Preparacion Universitaria/Razonamiento Abstracto.html',
+                'razonamiento-verbal': 'Preparacion Universitaria/Razonamiento Vernal.html'
+            };
             
-            // Simular entrada a la sala
+            const roomName = roomNames[roomType];
+            const roomFile = roomFiles[roomType];
+            
+            // Confirmar entrada a la sala
             if (confirm(`¿Desea ingresar a la sala de ${roomName}?`)) {
                 // Mostrar loading
                 const loadingHtml = `
@@ -755,16 +767,15 @@
                 
                 document.querySelector('.rooms-section').innerHTML = loadingHtml;
                 
-                // Simular carga y redirección
+                // Redireccionar a la página específica de la materia
                 setTimeout(() => {
-                    alert(`¡Bienvenido a la sala de ${roomName}!\n\nEn una implementación real, aquí se abriría la sala virtual con:\n- Video conferencia\n- Pizarra compartida\n- Chat en tiempo real\n- Recursos de estudio\n- Herramientas colaborativas`);
-                    
-                    // En una implementación real, aquí se redirigiría a la sala
-                    // window.location.href = `sala-${roomType}.html`;
-                    
-                    // Por ahora, recargar la página para simular
-                    location.reload();
-                }, 2000);
+                    if (roomFile) {
+                        window.location.href = roomFile;
+                    } else {
+                        alert(`Error: No se encontró la página para ${roomName}`);
+                        location.reload();
+                    }
+                }, 1500);
             }
         }
         
